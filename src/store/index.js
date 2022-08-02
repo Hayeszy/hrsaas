@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import getters from './getters'
+// import getters from './getters'
 import app from './modules/app'
 import settings from './modules/settings'
 import user from './modules/user'
+import createVuexPersisted from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
@@ -13,7 +14,17 @@ const store = new Vuex.Store({
     settings,
     user
   },
-  getters
+  getters: [
+  ],
+  plugins: [
+    createVuexPersisted({
+      reducer(state) {
+        return {
+          user: state.user
+        }
+      }
+    })
+  ]
 })
 
 export default store
