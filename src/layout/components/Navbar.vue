@@ -43,6 +43,7 @@ import Hamburger from '@/components/Hamburger'
 import defaultImg from '@/assets/common/head.jpg'
 
 export default {
+  // 如果想在data中定义本地图片路径,需要先引入
   data() {
     return {
       defaultImg,

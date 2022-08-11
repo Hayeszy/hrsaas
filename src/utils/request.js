@@ -5,7 +5,7 @@ import store from '@/store'
 import { getTokenTime } from '@/utils/auth'
 import router from '@/router'
 
-function isTimeout () {
+function isTimeOut() {
   const currentTime = Date.now()
   const tokenTime = getTokenTime()
   const timeout = 2 * 60 * 60 * 1000
@@ -23,13 +23,11 @@ const service = axios.create({
 service.interceptors.request.use(async (config) => {
   // 当前请求的配置
   if (store.state.user.token) {
-    if (isTimeout()) {
-      // 判断token 是否过期 过期 就跳到登录页
+    if (isTimeOut()) {
       await store.dispatch('user/logout')
       router.push('/login')
       return Promise.reject(new Error('登录过期'))
     } else {
-      // token 没有过期再携带
       config.headers.Authorization = 'Bearer ' + store.state.user.token
     }
   }
@@ -47,6 +45,7 @@ service.interceptors.response.use(
   },
   async function (error) {
     // 对响应错误做点什么
+    // es11
     if (error?.response?.status === 401) {
       Message.error('登录过期')
       await store.dispatch('user/logout')
@@ -54,6 +53,7 @@ service.interceptors.response.use(
     } else {
       Message.error(error.message)
     }
+
     return Promise.reject(error)
   }
 ) // 响应拦截器
