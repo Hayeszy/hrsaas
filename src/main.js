@@ -15,9 +15,23 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission' // permission control
+// 自定义指令
 import * as directives from '@/directives'
+// 组件
+import components from '@/components'
+// 过滤器封装
+import * as filters from '@/filters'
 
-console.log(directives)
+// 统一注册过滤器
+for (let key in filters) {
+  Vue.filter(key, filters[key])
+}
+// 统一注册组件
+Vue.use(components)
+// 统一注册自定义指令
+for (let key in directives) {
+  Vue.directive(key, directives[key])
+}
 
 // mock假数据
 if (process.env.NODE_ENV === 'production') {
@@ -36,10 +50,6 @@ Vue.use(ElementUI, { locale })
 Vue.config.productionTip = false
 // 参数1: 自定义指令的名字: 不需要+v-
 // 参数2: 是配置对象
-
-for (let key in directives) {
-  Vue.directive(key, directives[key])
-}
 
 new Vue({
   el: '#app',
