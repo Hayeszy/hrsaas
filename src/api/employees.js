@@ -43,16 +43,45 @@ export function addEmployee(data) {
     data,
   })
 }
-
 /**
  * 批量导入员工
  * @param {*} data 员工数组
- * @returns 
  */
 export function importEmployees(data) {
   return request({
-    method: 'POST',
+    method: 'post',
     url: '/sys/user/batch',
     data,
+  })
+}
+
+/** *
+ *  读取用户详情的基础信息
+ * **/
+export function getPersonalDetail(id) {
+  return request({
+    url: `/employees/${id}/personalInfo`,
+  })
+}
+
+/** *
+ *  更新用户详情的基础信息
+ * **/
+export function updatePersonal(data) {
+  return request({
+    url: `/employees/${data.userId}/personalInfo`,
+    method: 'put',
+    data,
+  })
+}
+
+/** *
+ * 给用户分配角色
+ * ***/
+export function assignRoles(data) {
+  return request({
+    url: '/sys/user/assignRoles',
+    data,
+    method: 'put',
   })
 }

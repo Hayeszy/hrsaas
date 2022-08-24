@@ -21,6 +21,9 @@ import * as directives from '@/directives'
 import components from '@/components'
 // 过滤器封装
 import * as filters from '@/filters'
+import Print from 'vue-print-nb'
+// console.log(Print)
+Vue.use(Print)
 
 // 统一注册过滤器
 for (let key in filters) {
